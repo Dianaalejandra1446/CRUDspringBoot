@@ -61,9 +61,18 @@ public class ClienteController {
         }
     }
     @PutMapping("cliente/actualizar")
-    public String actualizarCliente(@RequestBody Cliente cliente){
-        if (listaClientes.contains(cliente)) {
-           
+    public String actualizarCliente(@RequestBody Cliente clienteActualizado){
+        for(Cliente cliente : listaClientes){
+            if (cliente.getNombre().equals(clienteActualizado.getNombre())) {
+                // Actualizar los datos
+                cliente.setApellido(clienteActualizado.getApellido());
+                cliente.setDireccion(clienteActualizado.getDireccion());
+                cliente.setTelefono(clienteActualizado.getTelefono());
+                cliente.setEmail(clienteActualizado.getEmail());
+                return "Cliente actualizado con éxito";
+            }
         }
-    }    
+        return "No se encontró ningún cliente a actualizar";
+    }
+      
 }
